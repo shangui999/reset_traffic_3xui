@@ -17,7 +17,7 @@ WHITELIST=("$@")
 COOKIES=$(curl -k -s -i "$PANEL_URL/login" \
   --data-urlencode "username=$USERNAME" \
   --data-urlencode "password=$PASSWORD" 2>/dev/null | \
-  grep -i 'Set-Cookie:' | grep '=;' | cut -d' ' -f2- | cut -d';' -f 1)
+  grep -i 'Set-Cookie:' | cut -d' ' -f2 | cut -d';' -f 1)
 
 # 判断是否成功获取 Cookies
 if [ -z "$COOKIES" ]; then
