@@ -61,6 +61,9 @@ USERNAME="${XUI_USERNAME:-admin}"
 PASSWORD="${XUI_PASSWORD:-admin}"
 # =========================================================
 
+# 移除 PANEL_URL 末尾的斜杠（如果有）
+PANEL_URL="${PANEL_URL%/}"
+
 COOKIE_FILE=$(mktemp)
 trap 'rm -f "$COOKIE_FILE"' EXIT
 

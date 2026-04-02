@@ -62,10 +62,13 @@ def show_help():
     sys.exit(0)
 
 # ======================== 配置区域 ========================
-PANEL_URL = os.getenv("XUI_PANEL_URL", "http://127.0.0.1:2053")  # 面板地址（含端口，不带末尾斜杠）
+PANEL_URL = os.getenv("XUI_PANEL_URL", "http://127.0.0.1:2053")  # 面板地址（含端口）
 USERNAME = os.getenv("XUI_USERNAME", "admin")                      # 面板用户名
 PASSWORD = os.getenv("XUI_PASSWORD", "admin")                      # 面板密码
 # =========================================================
+
+# 移除 PANEL_URL 末尾的斜杠（如果有）
+PANEL_URL = PANEL_URL.rstrip("/")
 
 logging.basicConfig(
     level=logging.INFO,
