@@ -25,6 +25,8 @@
 
 ### 1. 配置
 
+**⚠️ 重要提示：环境变量名必须带 `XUI_` 前缀！**
+
 #### 方式一：环境变量（推荐）
 
 ```bash
@@ -32,6 +34,8 @@ export XUI_PANEL_URL="http://127.0.0.1:2053"
 export XUI_USERNAME="admin"
 export XUI_PASSWORD="your_password"
 ```
+
+> **注意**：`PANEL_URL`、`USERNAME`、`PASSWORD` 这些变量名**不会生效**，必须使用 `XUI_PANEL_URL`、`XUI_USERNAME`、`XUI_PASSWORD`！
 
 #### 方式二：修改脚本
 
@@ -59,6 +63,16 @@ python3 reset_traffic.py
 
 # Bash 版本
 bash reset_traffic.sh
+```
+
+#### 查看帮助
+
+```bash
+# Python 版本
+python3 reset_traffic.py -h
+
+# Bash 版本
+bash reset_traffic.sh -h
 ```
 
 ### 3. 定时执行（cron）

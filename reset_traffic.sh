@@ -3,13 +3,57 @@
 # 3x-ui 面板每月重置所有已用流量脚本 (Shell 版)
 #
 # 用法:
-#   1. 修改下方配置或通过环境变量传入
-#   2. 直接运行: bash reset_traffic.sh
-#   3. 配合 cron 每月自动执行:
-#      crontab -e
-#      0 2 1 * * XUI_PANEL_URL="http://IP:端口" XUI_USERNAME="用户名" XUI_PASSWORD="密码" /path/to/reset_traffic.sh >> /var/log/3xui_reset.log 2>&1
+#   bash reset_traffic.sh [选项]
+#
+# 选项:
+#   -h, --help     显示此帮助信息
+#
+# 配置方式（按优先级排序）:
+#   1. 环境变量（必须带 XUI_ 前缀）:
+#      export XUI_PANEL_URL="http://127.0.0.1:2053"
+#      export XUI_USERNAME="admin"
+#      export XUI_PASSWORD="your_password"
+#
+#   2. 修改脚本中的配置区域
+#
+# 定时执行示例:
+#   crontab -e
+#   0 2 1 * * XUI_PANEL_URL="http://IP:端口" XUI_USERNAME="用户名" XUI_PASSWORD="密码" /path/to/reset_traffic.sh >> /var/log/3xui_reset.log 2>&1
 
 set -euo pipefail
+
+# 显示帮助信息
+show_help() {
+    cat << 'EOF'
+3x-ui 流量重置脚本 (Bash 版)
+
+用法: bash reset_traffic.sh [选项]
+
+选项:
+  -h, --help     显示此帮助信息
+
+环境变量（必须带 XUI_ 前缀）:
+  XUI_PANEL_URL    面板地址，如 http://127.0.0.1:2053
+  XUI_USERNAME     面板用户名
+  XUI_PASSWORD     面板密码
+
+示例:
+  # 使用环境变量运行
+  export XUI_PANEL_URL="http://YOUR_PANEL_IP:PORT/PATH"
+  export XUI_USERNAME="admin"
+  export XUI_PASSWORD="password"
+  bash reset_traffic.sh
+
+  # 显示帮助
+  bash reset_traffic.sh -h
+EOF
+    exit 0
+}
+
+# 检查帮助参数
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    show_help
+fi
 
 # ======================== 配置区域 ========================
 PANEL_URL="${XUI_PANEL_URL:-http://127.0.0.1:2053}"
