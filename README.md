@@ -86,9 +86,16 @@ crontab -e
 # 添加以下行（Python 版本）
 0 2 1 * * XUI_PANEL_URL="http://IP:端口" XUI_USERNAME="用户名" XUI_PASSWORD="密码" /usr/bin/python3 /path/to/reset_traffic.py >> /var/log/3xui_reset.log 2>&1
 
-# 或（Bash 版本）
+# Bash 版本（方法1：使用 bash 执行）
+0 2 1 * * XUI_PANEL_URL="http://IP:端口" XUI_USERNAME="用户名" XUI_PASSWORD="密码" /bin/bash /path/to/reset_traffic.sh >> /var/log/3xui_reset.log 2>&1
+
+# Bash 版本（方法2：先给脚本赋权，然后直接执行）
+chmod +x /path/to/reset_traffic.sh
+# 然后在 crontab 中：
 0 2 1 * * XUI_PANEL_URL="http://IP:端口" XUI_USERNAME="用户名" XUI_PASSWORD="密码" /path/to/reset_traffic.sh >> /var/log/3xui_reset.log 2>&1
 ```
+
+> **注意**：crontab 中建议使用绝对路径，Bash 脚本可以用 `/bin/bash /path/to/script.sh` 方式执行，或者先 `chmod +x` 赋权后直接执行。
 
 ## 日志示例
 
